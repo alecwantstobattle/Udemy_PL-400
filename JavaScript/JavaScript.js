@@ -1,6 +1,6 @@
 this.formOnLoad = function (executionContext) {
     var formContext = executionContext.getFormContext();
-    formContext.ui.setFormNotification("Hello World v4", "INFO", "IDUnique14102023");
+    formContext.ui.setFormNotification("Hello World v6", "INFO", "IDUnique14102023");
     if (formContext.getAttribute("fax").getValue() == null)
     {
         formContext.getAttribute("fax").setValue("123-4567");
@@ -16,5 +16,11 @@ this.formOnLoad = function (executionContext) {
 
 this.AddressStreet3Hide = function (executionContext) {
     var formContext = executionContext.getFormContext();
-    formContext.getControl("address1_line3").setVisible(false);
+    if (formContext.getAttribute("address1_line2").getValue() == null) {
+        formContext.getControl("address1_composite_compositionLinkControl_address1_line3").setVisible(false);
+    }
+    else {
+        formContext.getControl("address1_composite_compositionLinkControl_address1_line3").setVisible(true);
+    }
+    
 }
