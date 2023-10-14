@@ -4,6 +4,12 @@ this.formOnLoad = function (executionContext) {
     if (formContext.getAttribute("fax").getValue() == null)
     {
         formContext.getAttribute("fax").setValue("123-4567");
+        formContext.getControl("fax").addNotification({
+            messages: ["Fax number set to default."],
+            notificationLevel: "RECOMMENDATION",
+            uniqueID: "IDUnique14102023-2"
+        })
+        formContext.getControl("fax").clearNotification();
     }
     
 }
