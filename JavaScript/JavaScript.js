@@ -1,6 +1,6 @@
 this.formOnLoad = function (executionContext) {
     var formContext = executionContext.getFormContext();
-    formContext.ui.setFormNotification("Hello World v7", "INFO", "IDUnique14102023");
+    formContext.ui.setFormNotification("Hello World v8", "INFO", "IDUnique14102023");
     if (formContext.getAttribute("fax").getValue() == null)
     {
         formContext.getAttribute("fax").setValue("123-4567");
@@ -36,4 +36,11 @@ this.ChangeZipPostalCode = function (executionContext) {
     else {
         formContext.getControl("address1_composite_compositionLinkControl_address1_postalcode").setLabel("ZIP code");
     }
+}
+
+function ButtonPress (primaryControl) {
+    var formContext = primaryControl;
+    Xrm.Navigation.openAlertDialog({
+        text: "Click"
+    });
 }
