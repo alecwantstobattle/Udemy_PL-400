@@ -1,6 +1,6 @@
 this.formOnLoad = function (executionContext) {
     var formContext = executionContext.getFormContext();
-    formContext.ui.setFormNotification("Hello World v8", "INFO", "IDUnique14102023");
+    formContext.ui.setFormNotification("Hello World v10", "INFO", "IDUnique14102023");
     if (formContext.getAttribute("fax").getValue() == null)
     {
         formContext.getAttribute("fax").setValue("123-4567");
@@ -41,6 +41,13 @@ this.ChangeZipPostalCode = function (executionContext) {
 function ButtonPress (primaryControl) {
     var formContext = primaryControl;
     Xrm.Navigation.openAlertDialog({
-        text: "Click"
+        text: "Click",
+        confirmButtonLabel: "Button Label",
+        title: "Dialog bog for ".concat(formContext.getAttribute("name").getValue())
+    }).then(function (success) {
+        Xrm.Navigation.openConfirmDialog({
+            text: "You have successfully clicked."
+        })
     });
+    formContext.getControl("name").setLabel("name");
 }
