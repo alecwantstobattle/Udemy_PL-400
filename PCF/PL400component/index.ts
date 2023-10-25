@@ -1,7 +1,9 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 
 export class PL400component implements ComponentFramework.StandardControl<IInputs, IOutputs> {
-
+    private myNotifyOutputChanged: () => void;
+    private myMainDiv: HTMLDivElement;
+    private myTextbox: HTMLTextAreaElement;
     /**
      * Empty constructor.
      */
@@ -20,7 +22,12 @@ export class PL400component implements ComponentFramework.StandardControl<IInput
      */
     public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement): void
     {
+        this.myNotifyOutputChanged = notifyOutputChanged;
+        this.myMainDiv = document.createElement("div");
+        this.myTextbox = document.createElement("textarea");
+        this.myMainDiv.appendChild(this.myTextbox);
         // Add control initialization code
+        container.appendChild(this.myMainDiv);
     }
 
 
