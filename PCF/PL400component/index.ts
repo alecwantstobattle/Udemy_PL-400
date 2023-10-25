@@ -25,6 +25,7 @@ export class PL400component implements ComponentFramework.StandardControl<IInput
         this.myNotifyOutputChanged = notifyOutputChanged;
         this.myMainDiv = document.createElement("div");
         this.myTextbox = document.createElement("textarea");
+        this.myTextbox.value = context.parameters.textValue.raw || "";
         this.myMainDiv.appendChild(this.myTextbox);
         // Add control initialization code
         container.appendChild(this.myMainDiv);
@@ -38,6 +39,9 @@ export class PL400component implements ComponentFramework.StandardControl<IInput
     public updateView(context: ComponentFramework.Context<IInputs>): void
     {
         // Add code to update control view
+        this.myTextbox.value = context.parameters.textValue.raw || "";
+        this.myTextbox.value =  this.myTextbox.value.toUpperCase();
+        this.myNotifyOutputChanged();
     }
 
     /**
@@ -46,7 +50,9 @@ export class PL400component implements ComponentFramework.StandardControl<IInput
      */
     public getOutputs(): IOutputs
     {
-        return {};
+        return {
+            textValue: this.myTextbox.value
+        };
     }
 
     /**
