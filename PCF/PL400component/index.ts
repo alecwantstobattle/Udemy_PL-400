@@ -7,6 +7,8 @@ export class PL400component
   private myMainDiv: HTMLDivElement;
   private myTextbox: HTMLTextAreaElement;
   private myLabel: HTMLLabelElement;
+  private myButton: HTMLButtonElement;
+  private myButtonHandler: EventListener;
   private myIsUpperCaseOnly: boolean;
   /**
    * Empty constructor.
@@ -40,6 +42,14 @@ export class PL400component
     this.myMainDiv.appendChild(this.myLabel);
     this.myIsUpperCaseOnly = context.parameters.isUpperCaseOnly.raw || false;
 
+    // This creates a button
+    this.myButton = document.createElement("button");
+    this.myButton.textContent = "Click me";
+    this.myButtonHandler = this.myButtonClicked.bind(this);
+    this.myButton.addEventListener("click", this.myButtonHandler);
+
+    this.myMainDiv.appendChild(this.myButton);
+
     // This adds everything into container
     container.appendChild(this.myMainDiv);
   }
@@ -48,6 +58,11 @@ export class PL400component
    * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
    * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
    */
+  public myButtonClicked() {
+    //this.myTextbox.value = "You clicked";
+    this.myIsUpperCaseOnly = !this.myIsUpperCaseOnly;
+  }
+
   public updateView(context: ComponentFramework.Context<IInputs>): void {
     // Add code to update control view
     // Updates values
