@@ -8,8 +8,9 @@ export class PL400component
   private myTextbox: HTMLTextAreaElement;
   private myLabel: HTMLLabelElement;
   private myButton: HTMLButtonElement;
-  private myButtonHandler: EventListener;
+  private myButtonHandler: any;
   private myIsUpperCaseOnly: boolean;
+  private myTextboxHandler: any;
   /**
    * Empty constructor.
    */
@@ -36,11 +37,12 @@ export class PL400component
     this.myTextbox = document.createElement("textarea");
     this.myTextbox.value = context.parameters.textValue.raw || "";
     this.myMainDiv.appendChild(this.myTextbox);
+    this.myTextboxHandler = this.myTextboxOnChange.bind(this);
+    this.myTextbox.addEventListener("input", this.myTextboxHandler);
 
     // This creates label
     this.myLabel = document.createElement("label");
     this.myMainDiv.appendChild(this.myLabel);
-    this.myIsUpperCaseOnly = context.parameters.isUpperCaseOnly.raw || false;
 
     // This creates a button
     this.myButton = document.createElement("button");
@@ -61,19 +63,23 @@ export class PL400component
   public myButtonClicked() {
     //this.myTextbox.value = "You clicked";
     this.myIsUpperCaseOnly = !this.myIsUpperCaseOnly;
+    this.myNotifyOutputChanged();
+  }
+
+  public myTextboxOnChange() {
+    this.myNotifyOutputChanged();
   }
 
   public updateView(context: ComponentFramework.Context<IInputs>): void {
     // Add code to update control view
     // Updates values
     this.myTextbox.value = context.parameters.textValue.raw || "";
-    this.myIsUpperCaseOnly = context.parameters.isUpperCaseOnly.raw || false;
 
     if (this.myIsUpperCaseOnly) {
-      this.myLabel.innerHTML = "UPPER CASE ONLY";
+      this.myLabel.innerHTML = "UPPER CASE ONLY 2";
       this.myTextbox.value = this.myTextbox.value.toUpperCase();
-    } else if (!this.myIsUpperCaseOnly) {
-      this.myLabel.innerHTML = "UPPER/lower case";
+    } else if (!this.myIsUpperCaseOnly && this.myLabel.innerHTML != "UPPER/lower case 2") {
+      this.myLabel.innerHTML = "UPPER/lower case 2";
     }
 
     // Calls NotifyOutputChanged
@@ -87,7 +93,6 @@ export class PL400component
   public getOutputs(): IOutputs {
     return {
       textValue: this.myTextbox.value,
-      isUpperCaseOnly: this.myIsUpperCaseOnly,
     };
   }
 
